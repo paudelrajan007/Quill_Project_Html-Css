@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>My Portfolio — Single File</title>
+    <meta
+      name="description"
+      content="All‑in‑one HTML + CSS practice: semantics, media, tables, forms, grid/flex, and more."
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Ctext y='50%25' x='50%25' dominant-baseline='middle' text-anchor='middle'%3E🌐%3C/text%3E%3C/svg%3E"
+    />
+
+    <style>
+      :root {
+        --bg: #0f172a;
+        --surface: #111827;
+        --text: #e5e7eb;
+        --muted: #9ca3af;
+        --brand: #22d3ee;
+        --brand-2: #a78bfa;
+        --accent: #34d399;
+        --danger: #f87171;
+        --radius: 12px;
+        --shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+        --font-sans: system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial,
+          sans-serif;
+        --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        --space-1: 0.25rem;
+        --space-2: 0.5rem;
+        --space-3: 0.75rem;
+        --space-4: 1rem;
+        --space-6: 1.5rem;
+        --space-8: 2rem;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      img,
+      svg,
+      video,
+      canvas,
+      audio {
+        max-width: 100%;
+        height: auto;
+        display: block;
+      }
+
+      html {
+        font-size: 16px;
+      }
+      body {
+        font-family: var(--font-sans);
+        color: var(--text);
+        background: linear-gradient(180deg, #0b1220, var(--bg));
+        line-height: 1.6;
+        letter-spacing: 0.2px;
+        -webkit-font-smoothing: antialiased;
+        padding-bottom: var(--space-8);
+      }
+      h1,
+      h2,
+      h3 {
+        line-height: 1.2;
+        margin: 0 0 var(--space-4);
+      }
+      h1 {
+        font-size: clamp(2rem, 3vw, 3rem);
+      }
+      h2 {
+        font-size: clamp(1.5rem, 2.5vw, 2rem);
+      }
+      h3 {
+        font-size: clamp(1.25rem, 2vw, 1.5rem);
+      }
+      p {
+        margin: 0 0 var(--space-4);
+      }
+      small {
+        color: var(--muted);
+      }
+      code {
+        font-family: var(--font-mono);
+        background: #0b1220;
+        padding: 0 0.35em;
+        border-radius: 6px;
+      }
+      kbd {
+        font-family: var(--font-mono);
+        border: 1px solid #334155;
+        border-bottom-width: 2px;
+        padding: 0 0.35em;
+        border-radius: 6px;
+        background: #0f172a;
+      }
+
+      a {
+        color: var(--brand);
+        text-decoration: none;
+      }
+      a:hover {
+        color: var(--brand-2);
+        text-decoration: underline;
+        text-underline-offset: 2px;
+      }
+      .btn {
+        display: inline-block;
+        padding: 0.6rem 1rem;
+        border-radius: 999px;
+        border: 1px solid #334155;
+        color: var(--text);
+        background: #0b1220;
+        transition: transform 0.15s ease, background 0.2s, color 0.2s,
+          box-shadow 0.2s;
+      }
+      .btn:hover {
+        transform: translateY(-1px);
+        box-shadow: var(--shadow);
+      }
+      .btn.primary {
+        background: linear-gradient(135deg, var(--brand), var(--brand-2));
+        color: #0b1220;
+        border-color: transparent;
+      }
+      .btn.primary:hover {
+        filter: brightness(1.05);
+      }
+
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        backdrop-filter: saturate(1.2) blur(8px);
+        background: rgba(15, 23, 42, 0.65);
+        border-bottom: 1px solid #1f2937;
+      }
+      .site-header .wrap {
+        max-width: 1000px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .site-header .logo {
+        font-weight: 800;
+        font-size: 1.25rem;
+        padding: var(--space-4);
+        display: inline-block;
+      }
+      .site-header .logo span {
+        color: var(--brand);
+      }
+      .nav {
+        list-style: none;
+        display: flex;
+        gap: var(--space-4);
+        margin: 0;
+        padding: var(--space-4);
+      }
+      .nav a {
+        padding: 0.4rem 0.75rem;
+        border-radius: 8px;
+      }
+      .nav a[aria-current="page"] {
+        background: #0b1220;
+        border: 1px solid #1f2937;
+      }
+
+      main {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: var(--space-8) var(--space-4);
+      }
+      section {
+        margin-block: var(--space-8);
+      }
+      aside.callout {
+        border: 1px solid #334155;
+        background: #0b1220;
+        padding: var(--space-4);
+        border-radius: var(--radius);
+      }
+
+      .hero {
+        display: grid;
+        gap: var(--space-4);
+        background: radial-gradient(
+            800px 400px at 10% 10%,
+            rgba(34, 211, 238, 0.12),
+            transparent
+          ),
+          radial-gradient(
+            600px 300px at 90% 20%,
+            rgba(167, 139, 250, 0.12),
+            transparent
+          );
+        padding: clamp(1rem, 4vw, 3rem);
+        border: 1px solid #1f2937;
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+      }
+
+      .features ul {
+        list-style: square inside;
+      }
+      .features ol {
+        list-style: decimal;
+      }
+      .features dl {
+        display: grid;
+        grid-template-columns: 120px 1fr;
+        gap: var(--space-2);
+      }
+      .features dt {
+        color: var(--muted);
+      }
+      .features dd {
+        margin: 0;
+      }
+
+      figure {
+        margin: 0;
+      }
+      figcaption {
+        color: var(--muted);
+        font-size: 0.9rem;
+        margin-top: var(--space-2);
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: var(--space-4);
+      }
+      .card {
+        background: #0b1220;
+        border: 1px solid #1f2937;
+        border-radius: var(--radius);
+        padding: var(--space-4);
+        transition: transform 0.15s ease, box-shadow 0.2s, border-color 0.2s;
+      }
+      .card:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow);
+        border-color: #334155;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        border: 1px solid #334155;
+        background: #0b1220;
+        border-radius: var(--radius);
+        overflow: hidden;
+      }
+      caption {
+        caption-side: top;
+        text-align: left;
+        padding: var(--space-2);
+        color: var(--muted);
+      }
+      thead th {
+        background: #0f172a;
+        text-align: left;
+      }
+      th,
+      td {
+        padding: 0.75rem 1rem;
+        border-bottom: 1px solid #1f2937;
+      }
+      tbody tr:nth-child(even) {
+        background: #0e1628;
+      }
+      .col-skill {
+        width: 25%;
+      }
+      .col-level {
+        width: 25%;
+      }
+
+      article {
+        border: 1px solid #1f2937;
+        border-radius: var(--radius);
+        padding: var(--space-4);
+        background: #0b1220;
+        margin-bottom: var(--space-4);
+      }
+      article header p {
+        color: var(--muted);
+      }
+
+      form {
+        display: grid;
+        gap: var(--space-4);
+        background: #0b1220;
+        border: 1px solid #1f2937;
+        border-radius: var(--radius);
+        padding: var(--space-6);
+      }
+      fieldset {
+        border: 1px dashed #334155;
+        border-radius: 10px;
+        padding: var(--space-4);
+      }
+      legend {
+        padding: 0 0.5rem;
+        color: var(--accent);
+      }
+      label {
+        display: block;
+        margin-bottom: 0.25rem;
+        font-weight: 600;
+      }
+      input,
+      select,
+      textarea {
+        width: 100%;
+        padding: 0.65rem 0.8rem;
+        border-radius: 10px;
+        border: 1px solid #334155;
+        background: #0f172a;
+        color: var(--text);
+        transition: border-color 0.2s, box-shadow 0.2s;
+      }
+      input:focus,
+      select:focus,
+      textarea:focus {
+        outline: none;
+        border-color: var(--brand);
+        box-shadow: 0 0 0 3px color-mix(in oklab, var(--brand) 30%, transparent);
+      }
+      input::placeholder,
+      textarea::placeholder {
+        color: #6b7280;
+      }
+      input[type="range"] {
+        accent-color: var(--brand);
+      }
+      meter,
+      progress {
+        width: 100%;
+      }
+
+      .site-footer {
+        max-width: 1000px;
+        margin: var(--space-8) auto 0;
+        padding: var(--space-4);
+        color: var(--muted);
+        border-top: 1px solid #1f2937;
+      }
+
+      .hidden {
+        display: none !important;
+      }
+
+      @media (max-width: 640px) {
+        .nav {
+          flex-wrap: wrap;
+        }
+        main {
+          padding: var(--space-6) var(--space-4);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap">
+        <a class="logo" href="#home">My<span>Site</span></a>
+        <nav aria-label="Primary">
+          <ul class="nav">
+            <li><a href="#home" aria-current="page">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#blog">Blog</a></li>
+            <li><a class="btn" href="#contact">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <!-- Home -->
+      <section id="home" aria-labelledby="home-title">
+        <div class="hero">
+          <h1 id="home-title">Hi, <mark>Developer</mark> here</h1>
+          <p>
+            Building web experiences with <strong>HTML</strong>, <em>CSS</em>,
+            and accessibility in mind.
+          </p>
+          <a class="btn primary" href="#portfolio">View Work</a>
+        </div>
+
+        <section class="features">
+          <h2>What I Do</h2>
+          <ul>
+            <li>Responsive layouts</li>
+            <li>Modern CSS: Grid & Flexbox</li>
+            <li>Clean, semantic HTML</li>
+          </ul>
+
+          <h3>Quick Facts</h3>
+          <ol>
+            <li>Based in Pune</li>
+            <li>Self-taught</li>
+            <li>Loves typography</li>
+          </ol>
+
+          <dl>
+            <dt>Stack</dt>
+            <dd>HTML, CSS</dd>
+            <dt>Focus</dt>
+            <dd>UI, semantics</dd>
+          </dl>
+        </section>
+
+        <aside class="callout" aria-label="Tip">
+          <blockquote cite="https://developer.mozilla.org/">
+            “CSS styles the structure defined by HTML.” <cite>— MDN</cite>
+          </blockquote>
+          <p><q>Keep HTML meaningful; use CSS for presentation.</q></p>
+        </aside>
+
+        <section class="media">
+          <h2>Featured Image</h2>
+          <figure>
+            <picture>
+              <source
+                type="image/avif"
+                srcset="https://picsum.photos/seed/avif/1200/600.avif"
+              />
+              <source
+                type="image/webp"
+                srcset="https://picsum.photos/seed/webp/1200/600.webp"
+              />
+              <img
+                src="https://picsum.photos/seed/jpg/1200/600"
+                alt="Abstract geometric shapes"
+                width="800"
+                height="400"
+              />
+            </picture>
+            <figcaption>Clean layouts with semantic HTML.</figcaption>
+          </figure>
+        </section>
+
+        <hr />
+      </section>
+
+      <!-- About -->
+      <section id="about" aria-labelledby="about-title">
+        <h1 id="about-title">About</h1>
+        <p>
+          I write clean HTML and modular CSS. Example class name:
+          <code>.btn--primary</code>. Press <kbd>Ctrl</kbd> + <kbd>S</kbd> to
+          save.
+        </p>
+        <p>Learning HTML5<sup>+</sup> and CSS3<sub>flex</sub> every day.</p>
+
+        <h2>Skills Matrix</h2>
+        <table>
+          <caption>
+            Proficiency Overview
+          </caption>
+          <colgroup>
+            <col span="1" class="col-skill" />
+            <col span="1" class="col-level" />
+            <col span="1" class="col-notes" />
+          </colgroup>
+          <thead>
+            <tr>
+              <th>Skill</th>
+              <th>Level</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>HTML</td>
+              <td>Advanced</td>
+              <td>Semantics, a11y</td>
+            </tr>
+            <tr>
+              <td>CSS</td>
+              <td>Advanced</td>
+              <td>Grid, Flex, custom props</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="3">
+                Updated <time datetime="2025-09-09">Sept 9, 2025</time>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </section>
+
+      <!-- Portfolio -->
+      <section id="portfolio" aria-labelledby="portfolio-title">
+        <h1 id="portfolio-title">Portfolio</h1>
+        <div class="grid">
+          <article class="card">
+            <a href="https://picsum.photos/seed/full1/1200/800" download>
+              <figure>
+                <img
+                  src="https://picsum.photos/seed/thumb1/600/400"
+                  alt="Landing page mockup"
+                />
+                <figcaption>Landing Page</figcaption>
+              </figure>
+            </a>
+            <p>Clean hero, responsive nav, and accessible buttons.</p>
+            <p><a href="#home" rel="noopener">Jump to Hero</a></p>
+          </article>
+
+          <article class="card">
+            <a href="https://picsum.photos/seed/full2/1200/800" download>
+              <figure>
+                <img
+                  src="https://picsum.photos/seed/thumb2/600/400"
+                  alt="Portfolio grid design"
+                />
+                <figcaption>Portfolio Grid</figcaption>
+              </figure>
+            </a>
+            <p>CSS Grid with auto-fit columns and fluid images.</p>
+          </article>
+
+          <article class="card">
+            <figure>
+              <video
+                controls
+                width="320"
+                poster="https://picsum.photos/seed/video/640/360"
+              >
+                <source
+                  src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"
+                  type="video/mp4"
+                />
+              </video>
+              <figcaption>Project walkthrough</figcaption>
+            </figure>
+          </article>
+
+          <article class="card">
+            <figure>
+              <audio controls>
+                <source
+                  src="https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3"
+                  type="audio/mpeg"
+                />
+              </audio>
+              <figcaption>Brand jingle</figcaption>
+            </figure>
+          </article>
+        </div>
+      </section>
+
+      <!-- Blog -->
+      <section id="blog" aria-labelledby="blog-title">
+        <h1 id="blog-title">Blog</h1>
+
+        <article>
+          <header>
+            <h2>Why Semantic HTML?</h2>
+            <p>
+              <time datetime="2025-09-01">September 1, 2025</time> •
+              <span>5 min read</span>
+            </p>
+          </header>
+          <p>Semantic tags improve structure and accessibility.</p>
+          <aside aria-label="Note">
+            Tip: Use <code>&lt;main&gt;</code> once per document.
+          </aside>
+          <footer>
+            <address>
+              Written by <a href="mailto:author@example.com">Author</a>
+            </address>
+          </footer>
+        </article>
+
+        <article>
+          <header>
+            <h2>CSS Layouts: Flex vs Grid</h2>
+            <p>
+              <time datetime="2025-08-20">August 20, 2025</time> •
+              <span>6 min read</span>
+            </p>
+          </header>
+          <p>
+            Flexbox handles one-dimensional flows; Grid excels in two
+            dimensions.
+          </p>
+        </article>
+      </section>
+
+      <!-- Contact -->
+      <section id="contact" aria-labelledby="contact-title">
+        <h1 id="contact-title">Contact</h1>
+        <form action="#" method="post" novalidate>
+          <fieldset>
+            <legend>Personal Info</legend>
+            <label for="name">Name</label>
+            <input
+              id="name"
+              name="name"
+              type="text"
+              placeholder="Jane Doe"
+              required
+            />
+
+            <label for="email">Email</label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              placeholder="you@example.com"
+              required
+            />
+
+            <label for="tel">Phone</label>
+            <input
+              id="tel"
+              name="tel"
+              type="tel"
+              placeholder="+91 98765 43210"
+              pattern="^[0-9+ -]{7,}$"
+            />
+          </fieldset>
+
+          <fieldset>
+            <legend>Project Details</legend>
+            <label for="type">Project Type</label>
+            <select id="type" name="type">
+              <option value="landing">Landing Page</option>
+              <option value="portfolio">Portfolio Site</option>
+              <option value="blog">Blog Layout</option>
+            </select>
+
+            <label for="budget">Budget</label>
+            <input id="budget" name="budget" type="number" min="0" step="100" />
+
+            <label for="timeline">Timeline (weeks)</label>
+            <input
+              id="timeline"
+              name="timeline"
+              type="range"
+              min="1"
+              max="12"
+              value="4"
+            />
+
+            <label for="tech">Preferred Tech</label>
+            <input
+              list="techlist"
+              id="tech"
+              name="tech"
+              placeholder="HTML/CSS"
+            />
+            <datalist id="techlist">
+              <option value="HTML"></option>
+              <option value="CSS"></option>
+            </datalist>
+
+            <label for="message">Message</label>
+            <textarea
+              id="message"
+              name="message"
+              rows="5"
+              placeholder="Tell me about your project..."
+            ></textarea>
+          </fieldset>
+
+          <div class="status">
+            <label
+              >Completion:
+              <meter min="0" max="100" value="60">60%</meter></label
+            >
+            <label>Upload: <progress max="100" value="30">30%</progress></label>
+          </div>
+
+          <button type="submit" class="btn primary">Send</button>
+          <button type="reset" class="btn">Reset</button>
+        </form>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <small
+        >&copy; <time datetime="2025">2025</time> MySite •
+        <a href="mailto:hello@example.com">Email</a></small
+      >
+    </footer>
+  </body>
+</html>
