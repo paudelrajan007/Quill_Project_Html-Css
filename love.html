@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Forever & Always — Romantic</title>
+    <meta
+      name="description"
+      content="A romantic, CSS-only landing page with soft colors, hearts, and elegant typography."
+    />
+    <style>
+      /* Palette inspired by romantic pinks, burgundy accents, and cream neutrals */
+      :root {
+        --bg: #fff7f9; /* soft blush/rose mist */
+        --bg-2: #fff1f4; /* lighter blush section */
+        --ink: #5b2b3a; /* wine/burgundy for headings */
+        --text: #7a4a57; /* warm body text */
+        --muted: #a87b88; /* subtle labels */
+        --accent: #e15b73; /* romantic rose accent */
+        --accent-dark: #cc4c63; /* hover accent */
+        --cream: #fffaf2; /* card/hero glow */
+        --ring: #f1c9d2; /* borders */
+      }
+
+      /* Reset & base */
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        margin: 0;
+        font-family: "Georgia", "Garamond", ui-serif, serif;
+        color: var(--text);
+        background: radial-gradient(
+            1200px 400px at 10% -10%,
+            #ffe3eb 0%,
+            transparent 60%
+          ),
+          radial-gradient(900px 350px at 90% 0%, #ffd8e5 0%, transparent 60%),
+          var(--bg);
+        line-height: 1.7;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+      img {
+        max-width: 100%;
+        display: block;
+        height: auto;
+      }
+
+      /* Layout helpers */
+      .container {
+        width: min(1050px, 92%);
+        margin-inline: auto;
+      }
+      .section {
+        padding: 80px 0;
+      }
+      .section.alt {
+        background: var(--bg-2);
+      }
+      .center {
+        text-align: center;
+      }
+
+      /* Header */
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background: rgba(255, 247, 249, 0.75);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--ring);
+      }
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px 0;
+        font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+          Arial, "Noto Sans", sans-serif;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--ink);
+        text-decoration: none;
+        font-weight: 800;
+        letter-spacing: 0.5px;
+      }
+      .brand .mark {
+        width: 26px;
+        height: 26px;
+        position: relative;
+        display: inline-block;
+        transform: translateY(1px);
+      }
+      /* CSS heart logo */
+      .brand .mark:before,
+      .brand .mark:after {
+        content: "";
+        position: absolute;
+        width: 14px;
+        height: 22px;
+        background: var(--accent);
+        border-radius: 14px 14px 0 0;
+        top: 4px;
+        left: 6px;
+        transform-origin: bottom center;
+      }
+      .brand .mark:before {
+        transform: rotate(-45deg);
+        left: 0;
+      }
+      .brand .mark:after {
+        transform: rotate(45deg);
+        left: 12px;
+      }
+
+      .links a {
+        color: var(--muted);
+        text-decoration: none;
+        margin-left: 16px;
+        padding: 6px 10px;
+        border-radius: 999px;
+        transition: color 0.2s ease, background 0.2s ease;
+      }
+      .links a:hover {
+        color: var(--ink);
+        background: #ffe9f0;
+      }
+
+      /* Hero */
+      .hero {
+        position: relative;
+        padding: 100px 0 80px;
+        background: radial-gradient(
+            800px 300px at 50% -10%,
+            #ffe9f0 0%,
+            transparent 70%
+          ),
+          linear-gradient(
+            180deg,
+            rgba(255, 250, 242, 0.8) 0%,
+            rgba(255, 250, 242, 0) 40%
+          ),
+          var(--bg);
+      }
+      .hero-inner {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 38px;
+        align-items: center;
+      }
+      h1,
+      h2,
+      h3 {
+        color: var(--ink);
+        margin: 0 0 10px;
+      }
+      h1 {
+        font-size: clamp(2rem, 3.2vw + 1rem, 3.2rem);
+        line-height: 1.1;
+      }
+      p.lead {
+        font-size: clamp(1.05rem, 0.6vw + 1rem, 1.25rem);
+        color: var(--text);
+        max-width: 60ch;
+      }
+      .cta {
+        margin-top: 22px;
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+          Arial, "Noto Sans", sans-serif;
+      }
+      .btn {
+        display: inline-block;
+        padding: 12px 18px;
+        border-radius: 999px;
+        text-decoration: none;
+        font-weight: 700;
+        letter-spacing: 0.3px;
+        border: 1px solid var(--ring);
+        color: var(--ink);
+        background: var(--cream);
+        box-shadow: 0 6px 20px rgba(225, 91, 115, 0.08);
+        transition: transform 0.08s ease, background 0.2s ease, color 0.2s ease,
+          border-color 0.2s ease;
+      }
+      .btn:hover {
+        transform: translateY(-1px);
+        background: #fff;
+      }
+      .btn.primary {
+        background: var(--accent);
+        color: #fff;
+        border-color: transparent;
+      }
+      .btn.primary:hover {
+        background: var(--accent-dark);
+      }
+
+      .card {
+        background: var(--cream);
+        border: 1px solid var(--ring);
+        border-radius: 16px;
+        padding: 22px;
+        box-shadow: 0 20px 60px rgba(92, 43, 58, 0.08);
+      }
+
+      /* Quote */
+      .quote {
+        font-family: "Georgia", "Garamond", serif;
+        font-size: 1.15rem;
+        color: var(--ink);
+        border-left: 4px solid var(--accent);
+        padding-left: 16px;
+        margin: 0;
+      }
+
+      /* Features (love notes) */
+      .grid-3 {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 22px;
+      }
+      .note h3 {
+        margin-bottom: 6px;
+      }
+      .note p {
+        margin: 0;
+      }
+
+      /* Gallery-like hearts line using pure CSS shapes */
+      .hearts-line {
+        display: flex;
+        gap: 16px;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-top: 24px;
+      }
+      .heart {
+        width: 26px;
+        height: 26px;
+        position: relative;
+        transform: rotate(-45deg);
+        animation: float 6s ease-in-out infinite;
+      }
+      .heart:before,
+      .heart:after {
+        content: "";
+        position: absolute;
+        width: 50%;
+        height: 80%;
+        background: var(--accent);
+        border-radius: 50% 50% 0 0;
+      }
+      .heart:before {
+        left: 50%;
+        transform: rotate(90deg);
+        transform-origin: 0 100%;
+      }
+      .heart:after {
+        left: 0;
+        transform: rotate(0deg);
+        transform-origin: 100% 100%;
+      }
+      .heart.pale:before,
+      .heart.pale:after {
+        background: #f7a5b4;
+      }
+      .heart.deep:before,
+      .heart.deep:after {
+        background: #bf3d59;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0) rotate(-45deg);
+        }
+        50% {
+          transform: translateY(-6px) rotate(-45deg);
+        }
+      }
+
+      /* Story section */
+      .story p {
+        margin: 0 0 10px;
+      }
+
+      /* Footer */
+      footer {
+        border-top: 1px solid var(--ring);
+        background: linear-gradient(
+            180deg,
+            rgba(255, 233, 240, 0.7),
+            rgba(255, 233, 240, 0.3)
+          ),
+          var(--bg);
+        padding: 26px 0;
+        color: var(--muted);
+        text-align: center;
+        font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+          Arial, "Noto Sans", sans-serif;
+      }
+
+      /* Responsive */
+      @media (max-width: 900px) {
+        .hero-inner {
+          grid-template-columns: 1fr;
+        }
+        .grid-3 {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+      @media (max-width: 560px) {
+        .grid-3 {
+          grid-template-columns: 1fr;
+        }
+        .cta {
+          justify-content: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="container nav">
+        <a class="brand" href="#">
+          <span class="mark" aria-hidden="true"></span>
+          <span>Forever & Always</span>
+        </a>
+        <nav class="links" aria-label="Primary">
+          <a href="#story">Our Story</a>
+          <a href="#notes">Love Notes</a>
+          <a href="#rsvp">RSVP</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <!-- Hero -->
+      <section class="hero">
+        <div class="container hero-inner">
+          <div>
+            <h1>Every day with you feels like a gentle sunrise</h1>
+            <p class="lead">
+              Soft colors, handwritten whispers, and little hearts—this page is
+              a love letter crafted with pure HTML and CSS, no scripts needed.
+              Let the palette, spacing, and type set a tender mood.
+            </p>
+            <div class="cta">
+              <a class="btn primary" href="#rsvp">Say Yes</a>
+              <a class="btn" href="#story">Read Our Story</a>
+            </div>
+          </div>
+          <div class="card">
+            <p class="quote">
+              “In all the world, there is no heart for me like yours. In all the
+              world, there is no love for you like mine.”
+            </p>
+            <p style="margin: 10px 0 0; color: var(--muted)">
+              — Inspired by classic love quotes
+            </p>
+            <div class="hearts-line" aria-hidden="true">
+              <span class="heart"></span>
+              <span class="heart pale"></span>
+              <span class="heart deep"></span>
+              <span class="heart"></span>
+              <span class="heart pale"></span>
+              <span class="heart deep"></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Love Notes -->
+      <section id="notes" class="section alt">
+        <div class="container">
+          <div class="center" style="margin-bottom: 22px">
+            <h2>Love Notes</h2>
+            <p class="lead">
+              Three tiny promises, tied with ribbon and kept close to the heart.
+            </p>
+          </div>
+          <div class="grid-3">
+            <article class="card note">
+              <h3>Patience</h3>
+              <p>I will meet every new day with gentle understanding.</p>
+            </article>
+            <article class="card note">
+              <h3>Kindness</h3>
+              <p>I will speak softly and hold your hopes carefully.</p>
+            </article>
+            <article class="card note">
+              <h3>Laughter</h3>
+              <p>I will find the light in ordinary moments with you.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Story -->
+      <section id="story" class="section">
+        <div class="container">
+          <div class="center" style="margin-bottom: 22px">
+            <h2>Our Story</h2>
+            <p class="lead">
+              A simple beginning, a quiet promise, and a path we choose
+              together.
+            </p>
+          </div>
+          <div class="card story">
+            <p>
+              Once upon a time, two hearts learned the same rhythm and never
+              forgot the tune.
+            </p>
+            <p>
+              There were long walks, shared coffee, and the soft courage of
+              small steps forward.
+            </p>
+            <p>
+              There will be seasons, and there will be change, but there will
+              always be us.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- RSVP -->
+      <section id="rsvp" class="section alt">
+        <div class="container">
+          <div class="center" style="margin-bottom: 22px">
+            <h2>Say You Will</h2>
+            <p class="lead">
+              A gentle nod, a smiling yes, a promise written in the margin of
+              today.
+            </p>
+          </div>
+          <div class="card" role="form" aria-labelledby="rsvp-title">
+            <h3 id="rsvp-title" style="margin-bottom: 12px">
+              RSVP (HTML & CSS only)
+            </h3>
+            <!-- Pure HTML/CSS form (non-functional without backend) -->
+            <form
+              action="#"
+              method="post"
+              novalidate
+              style="display: grid; gap: 14px"
+            >
+              <label style="display: grid; gap: 6px">
+                <span style="font-weight: 700; color: var(--ink)"
+                  >Your Name</span
+                >
+                <input
+                  type="text"
+                  placeholder="Darling Heart"
+                  required
+                  style="
+                    padding: 12px 14px;
+                    border-radius: 12px;
+                    border: 1px solid var(--ring);
+                    background: #fff;
+                    color: var(--text);
+                    font-family: inherit;
+                  "
+                />
+              </label>
+              <label style="display: grid; gap: 6px">
+                <span style="font-weight: 700; color: var(--ink)">Email</span>
+                <input
+                  type="email"
+                  placeholder="love@letters.com"
+                  required
+                  style="
+                    padding: 12px 14px;
+                    border-radius: 12px;
+                    border: 1px solid var(--ring);
+                    background: #fff;
+                    color: var(--text);
+                    font-family: inherit;
+                  "
+                />
+              </label>
+              <label style="display: grid; gap: 6px">
+                <span style="font-weight: 700; color: var(--ink)">Message</span>
+                <textarea
+                  rows="4"
+                  placeholder="Write a sweet note…"
+                  style="
+                    padding: 12px 14px;
+                    border-radius: 12px;
+                    border: 1px solid var(--ring);
+                    background: #fff;
+                    color: var(--text);
+                    font-family: inherit;
+                  "
+                ></textarea>
+              </label>
+              <div style="display: flex; gap: 10px; flex-wrap: wrap">
+                <a class="btn primary" href="#rsvp">Send a Kiss</a>
+                <a class="btn" href="#notes">Read More Notes</a>
+              </div>
+              <p
+                style="margin: 6px 0 0; color: var(--muted); font-size: 0.95rem"
+              >
+                This is a front‑end demo only; no data is sent.
+              </p>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container">
+        <p>
+          &copy; <span id="year"></span> Forever & Always — Made with hearts,
+          HTML & CSS.
+        </p>
+      </div>
+    </footer>
+
+    <!-- Minimal inline script only to set year text; remove if strictly no JS -->
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
