@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Specified Page – Q4</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: system-ui, Arial, sans-serif;
+        color: #222;
+      }
+
+      /* Header */
+      header {
+        background: #3498db; /* blue */
+        color: #ffffff;
+        font-size: 24px;
+        padding: 20px;
+        text-align: center;
+      }
+
+      /* Navigation */
+      nav {
+        background: #fff;
+        border-bottom: 1px solid #bdc3c7;
+      }
+      nav ul {
+        list-style: none;
+        margin: 0;
+        padding: 10px 12px;
+        text-align: center;
+      }
+      nav li {
+        display: inline;
+        margin: 0 10px; /* margin between links */
+      }
+      nav a {
+        display: inline-block;
+        font-size: 18px;
+        padding: 8px 12px;
+        text-decoration: none;
+        color: #2c3e50;
+        border-radius: 4px;
+        transition: background-color 0.2s ease, color 0.2s ease;
+      }
+      nav a:hover {
+        background: #e74c3c; /* red hover background */
+        color: #ffffff; /* white hover text */
+      }
+
+      /* Layout shell */
+      .wrap {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 16px;
+        display: grid;
+        grid-template-columns: 1fr 300px; /* content + right sidebar */
+        gap: 16px;
+      }
+
+      /* Main content */
+      main {
+        max-width: 800px; /* as specified */
+        background: #ecf0f1;
+        padding: 20px;
+        border: 1px solid #bdc3c7;
+        margin: 0 auto; /* centered */
+      }
+
+      /* Sidebar to the right */
+      aside {
+        width: 300px;
+        background: #f39c12; /* orange */
+        color: #ffffff;
+        padding: 15px;
+      }
+
+      /* Float fallback for legacy understanding of the spec */
+      @supports not (display: grid) {
+        .wrap {
+          display: block;
+        }
+        aside {
+          float: right; /* floats to right as requested */
+          margin-left: 16px;
+        }
+        main {
+          overflow: auto;
+        }
+        .clearfix::after {
+          content: "";
+          display: table;
+          clear: both;
+        }
+      }
+
+      /* Footer */
+      footer {
+        background: #2c3e50;
+        color: #ffffff;
+        text-align: center;
+        padding: 15px;
+      }
+
+      /* Responsiveness */
+      @media (max-width: 900px) {
+        .wrap {
+          grid-template-columns: 1fr;
+        }
+        aside {
+          width: 100%;
+          order: -1; /* show sidebar above content on small screens */
+        }
+        main {
+          max-width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>Header Area</header>
+
+    <nav>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Services</a></li>
+        <li><a href="#">Pricing</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="wrap clearfix">
+      <main>
+        <h2>Main Content</h2>
+        <p>Content goes here...</p>
+      </main>
+      <aside>
+        <h3>Sidebar</h3>
+        <p>Sidebar widgets...</p>
+      </aside>
+    </div>
+
+    <footer>Footer Area</footer>
+  </body>
+</html>
